@@ -1,4 +1,4 @@
-const filePath = process.platform === "linux" ? "/dex/stdin" : "./input.txt";
+const filePath = process.platform === "linux" ? "/dev/stdin" : "./input.txt";
 const input = require("fs")
   .readFileSync(filePath, "utf-8")
   .toString()
