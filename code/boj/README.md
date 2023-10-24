@@ -32,3 +32,10 @@ https://www.acmicpc.net/problem/2805
 https://www.acmicpc.net/problem/2839
 
 - 트리구조로 생각해서 BFS 로 풀었다.
+
+# 9095
+
+https://www.acmicpc.net/problem/9095
+
+- 점화식 구함.
+- a[n] = a[n-1] + a[n-2] +a[n-3]
