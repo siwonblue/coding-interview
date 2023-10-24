@@ -39,3 +39,10 @@ https://www.acmicpc.net/problem/9095
 
 - 점화식 구함.
 - a[n] = a[n-1] + a[n-2] +a[n-3]
+
+# 1464
+
+https://www.acmicpc.net/problem/1463
+
+- 트리구조로 생각해서 BFS 로 풀었음.
+- memoization 을 해줘야 해서 dp 문제로 분류
