@@ -1,6 +1,8 @@
 {
   "files.associations": {
     "*.svg": "html",
-    "iostream": "cpp"
+    "iostream": "cpp",
+    "vector": "cpp",
+    "ostream": "cpp"
   }
 }
