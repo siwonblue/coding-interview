@@ -46,3 +46,13 @@ https://www.acmicpc.net/problem/1463
 
 - 트리구조로 생각해서 BFS 로 풀었음.
 - memoization 을 해줘야 해서 dp 문제로 분류
+
+# 2512
+
+https://www.acmicpc.net/problem/2512
+
+- 파라메트릭 서치 이분탐색
+- 예산합 더하는데 O(N)
+- N 이상 1억 이하의 M 값 찾는데 O(N)
+- 시간 O(N^2) 인데 값이 크기때문에 시간 초과
+- 이분탐색으로 풀어야 함.
