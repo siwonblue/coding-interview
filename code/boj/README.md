@@ -56,3 +56,16 @@ https://www.acmicpc.net/problem/2512
 - N 이상 1억 이하의 M 값 찾는데 O(N)
 - 시간 O(N^2) 인데 값이 크기때문에 시간 초과
 - 이분탐색으로 풀어야 함.
+
+# 11403
+
+https://www.acmicpc.net/problem/11403
+
+- graph 를 입력받는다.
+- i, j 모든 경우에 대해 DFS를 수행한다.
+- i에서 출발해서 방문할 수 있는 모든 곳을 캐치한다.
+- 방문한 곳이면 1을 출력한다.
+
+# 1753
+
+https://www.acmicpc.net/problem/1753
