@@ -1,3 +1,25 @@
+# 24479
+
+https://www.acmicpc.net/problem/24479
+DFS 기본
+
+# 1753
+
+https://www.acmicpc.net/problem/1753
+최단거리, 최단경로, 다익스트라
+
+- 맵을 전체 다 받으면 메모리 초과가 난다.
+
+  ```js
+  // bad
+  const graph = Array.from({ length: V }, () => Array(V).fill(0));
+  ```
+
+  ```bash
+  c63f351 (HEAD -> main) [feat] 1753.js fail : exceed memory
+  $git show c63f351
+  ```
+
 # 11659
 
 https://www.acmicpc.net/problem/11659
@@ -60,12 +82,9 @@ https://www.acmicpc.net/problem/2512
 # 11403
 
 https://www.acmicpc.net/problem/11403
+최단경로, DFS, 다익스트라
 
 - graph 를 입력받는다.
 - i, j 모든 경우에 대해 DFS를 수행한다.
 - i에서 출발해서 방문할 수 있는 모든 곳을 캐치한다.
 - 방문한 곳이면 1을 출력한다.
-
-# 1753
-
-https://www.acmicpc.net/problem/1753
