@@ -1,3 +1,11 @@
+# 14502
+
+https://www.acmicpc.net/problem/14502
+
+1. 3<= N,M <= 8 이기때문에 64C3 으로 벽을 세운다.
+2. 벽이 세워지고 나면 DFS를 돌린다.
+3. 영역의 수를 계산한다.
+
 # 24479
 
 https://www.acmicpc.net/problem/24479
