@@ -14,13 +14,18 @@ DFS 기본
 # 1753
 
 https://www.acmicpc.net/problem/1753
-최단거리, 최단경로, 다익스트라
+최단거리, 최단경로, 다익스트라 기본 예제
 
 - 맵을 전체 다 받으면 메모리 초과가 난다.
 
   ```js
   // bad
   const graph = Array.from({ length: V }, () => Array(V).fill(0));
+  ```
+
+  ```js
+  // 인접 행렬로 받기 위해 수정
+  const graph = Array.from({ length: V }, () => []);
   ```
 
   ```bash

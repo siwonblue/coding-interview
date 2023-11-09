@@ -1,3 +1,65 @@
+class MinHeap {
+  constructor() {
+    this.heap = [];
+  }
+  swap(idx1, idx2) {
+    [this.heap[idx1], this.heap[idx2]] = [this.heap[idx2], this.heap[idx1]];
+  }
+  add(value) {
+    this.heap.push(value);
+    this.bubbleUp();
+  }
+  poll() {
+    const value = this.heap[0];
+    this.heap[0] = this.heap.pop();
+    this.bubbleDown();
+    return value;
+  }
+  bubbleUp() {
+    let curIdx = this.heap.length - 1;
+    let parrentIdx = Math.floor(curIdx / 2);
+    while (
+      this.heap[parrentIdx][1] &&
+      this.heap[parrentIdx][1] > this.heap[curIdx][1]
+    ) {
+      this.swap(parrentIdx, curIdx);
+      curIdx = parrentIdx;
+      parrentIdx = Math.floor(curIdx / 2);
+    }
+  }
+  bubbleDown() {
+    let curIdx = 0;
+    let leftIdx = curIdx * 2;
+    let rightIdx = curIdx * 2 + 1;
+
+    if (!this.heap[rightIdx]) {
+      if (this.heap[curIdx] && this.heap[curIdx][1] > this.heap[leftIdx][1])
+        this.swap(curIdx, leftIdx);
+      return;
+    }
+
+    while (
+      (this.heap[leftIdx] && this.heap[curIdx][1] > this.heap[leftIdx][1]) ||
+      (this.heap[rightIdx] && this.heap[curIdx][1] > this.heap[rightIdx][1])
+    ) {
+      if (
+        this.heap[rightIdx] &&
+        this.heap[leftIdx][1] >= this.heap[rightIdx][1]
+      ) {
+        this.swap(curIdx, rightIdx);
+        curIdx = rightIdx;
+        leftIdx = curIdx * 2;
+        rightIdx = curIdx * 2 + 1;
+      } else {
+        this.swap(curIdx, leftIdx);
+        curIdx = leftIdx;
+        leftIdx = curIdx * 2;
+        rightIdx = curIdx * 2 + 1;
+      }
+    }
+  }
+}
+
 const filePath =
   process.platform === "linux"
     ? "/dev/stdin"
@@ -8,59 +70,51 @@ const input = require("fs")
   .trim()
   .split("\n");
 const [V, E] = input.shift().split(" ").map(Number);
-const start = +input.shift();
-const graph = Array.from({ length: V }, () => Array(V).fill(0));
-const ans = Array.from({ length: V }, () => 0);
-const visit = Array.from({ length: V }, () => 0);
-const INF = 11;
-visit[start - 1] = 1;
-
+const K = +input.shift();
+const INF = Number.MAX_SAFE_INTEGER;
+const graph = Array.from({ length: V + 1 }, () => new MinHeap());
+const ans = Array.from({ length: V + 1 }, () => "INF");
+const visit = Array.from({ length: V + 1 }, () => 0);
 for (let i = 0; i < E; i++) {
-  const [start, end, distance] = input[i].split(" ").map(Number);
-  graph[start - 1][end - 1] = distance;
+  const [start, end, dis] = input[i].split(" ").map(Number);
+  graph[start].add([end, dis]);
 }
 
-/**
- * find index and distance of shortest node
- */
-function findNext(arr, accumulativeDistance) {
-  let distance = INF;
-  let next;
-  for (let i = 0; i < arr.length; i++) {
-    if (!arr[i]) continue;
-    if (arr[i] <= distance) {
-      distance = arr[i];
-      next = i;
+function dijkstra(v, accumulativeDis) {
+  // visit
+  if (visit[v]) return;
+  visit[v] = 1;
+  console.log(`${v}까지오는 최단 ${accumulativeDis}`);
+
+  // update
+  const connected = graph[v].heap;
+
+  if (connected.length === 0) return;
+  for (let i = 0; i < connected.length; i++) {
+    const [node, dis] = connected[i];
+    if (ans[node] === "INF") {
+      ans[node] = dis + accumulativeDis;
+      continue;
+    }
+    if (ans[node] > accumulativeDis + dis) {
+      ans[node] = dis + accumulativeDis;
     }
   }
 
-  for (let i = 0; i < arr.length; i++) {
-    if (!arr[i]) continue;
-    const newDistance = accumulativeDistance + arr[i];
-    if (ans[i] === 0) ans[i] = newDistance;
-    if (ans[i] !== 0 && ans[i] > newDistance) ans[i] = newDistance;
-  }
-  if (distance !== INF) visit[next] = 1;
+  const [node, dis] = graph[v].poll();
+  const next = Math.min(ans[node], dis + accumulativeDis);
 
-  return { next, distance };
-}
+  console.log(`${v}  <--${dis}--> ${node} 이동 예정`);
+  console.log(`${ans}`);
 
-function dijkstra(currentPosition, accumulativeDistance) {
-  const connected = graph[currentPosition];
-  const { next, distance } = findNext(connected, accumulativeDistance);
-  if (distance === INF) return;
-  // console.log("next", next);
-  // console.log("distance", distance);
-  // console.log("\n");
-  dijkstra(next, distance);
+  console.log(`\n`);
+  dijkstra(node, next);
 }
 
 function solution() {
-  dijkstra(start - 1, 0);
-  ans.map((v, idx) => {
-    if (v === 0 && idx !== start - 1) ans[idx] = "INF";
-  });
+  ans[K] = 0;
+  dijkstra(K, 0);
+  ans.shift();
   console.log(ans.join("\n"));
 }
 solution();
-// console.log(visit);
