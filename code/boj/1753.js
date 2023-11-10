@@ -19,7 +19,7 @@ class MinHeap {
     let curIdx = this.heap.length - 1;
     let parrentIdx = Math.floor(curIdx / 2);
     while (
-      this.heap[parrentIdx][1] &&
+      this.heap[parrentIdx] &&
       this.heap[parrentIdx][1] > this.heap[curIdx][1]
     ) {
       this.swap(parrentIdx, curIdx);
@@ -72,49 +72,37 @@ const input = require("fs")
 const [V, E] = input.shift().split(" ").map(Number);
 const K = +input.shift();
 const INF = Number.MAX_SAFE_INTEGER;
-const graph = Array.from({ length: V + 1 }, () => new MinHeap());
+const graph = Array.from({ length: V + 1 }, () => []);
 const ans = Array.from({ length: V + 1 }, () => "INF");
-const visit = Array.from({ length: V + 1 }, () => 0);
+
 for (let i = 0; i < E; i++) {
   const [start, end, dis] = input[i].split(" ").map(Number);
-  graph[start].add([end, dis]);
+  graph[start].push([end, dis]);
 }
 
-function dijkstra(v, accumulativeDis) {
-  // visit
-  if (visit[v]) return;
-  visit[v] = 1;
-  console.log(`${v}까지오는 최단 ${accumulativeDis}`);
-
-  // update
-  const connected = graph[v].heap;
-
-  if (connected.length === 0) return;
-  for (let i = 0; i < connected.length; i++) {
-    const [node, dis] = connected[i];
-    if (ans[node] === "INF") {
-      ans[node] = dis + accumulativeDis;
-      continue;
-    }
-    if (ans[node] > accumulativeDis + dis) {
-      ans[node] = dis + accumulativeDis;
+function dijkstra(v) {
+  const pq = new MinHeap();
+  pq.add([K, 0]);
+  while (pq.heap.length) {
+    const [curNode, accumulativeDis] = pq.poll();
+    console.log(pq.heap);
+    const connected = graph[curNode];
+    for (let i = 0; i < connected.length; i++) {
+      const [node, dis] = connected[i];
+      // console.log(`${curNode}에 연결된 ${dis} 거리의${node}`);
+      if (ans[node] === "INF") ans[node] = accumulativeDis + dis;
+      else if (ans[node] > accumulativeDis + dis) {
+        ans[node] = accumulativeDis + dis;
+        // pq.add([node, accumulativeDis + dis]);
+      }
     }
   }
-
-  const [node, dis] = graph[v].poll();
-  const next = Math.min(ans[node], dis + accumulativeDis);
-
-  console.log(`${v}  <--${dis}--> ${node} 이동 예정`);
-  console.log(`${ans}`);
-
-  console.log(`\n`);
-  dijkstra(node, next);
 }
 
 function solution() {
   ans[K] = 0;
-  dijkstra(K, 0);
-  ans.shift();
-  console.log(ans.join("\n"));
+  dijkstra(K);
+
+  // console.log(ans.join("\n"));
 }
 solution();
