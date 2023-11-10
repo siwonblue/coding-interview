@@ -2,6 +2,9 @@ class MinHeap {
   constructor() {
     this.heap = [];
   }
+  size() {
+    return this.heap.length;
+  }
   swap(idx1, idx2) {
     [this.heap[idx1], this.heap[idx2]] = [this.heap[idx2], this.heap[idx1]];
   }
@@ -9,57 +12,83 @@ class MinHeap {
     this.heap.push(value);
     this.bubbleUp();
   }
-  poll() {
+  extract() {
+    if (!this.size()) return;
+    if (this.size() === 1) {
+      const value = this.heap[0];
+      this.heap = [];
+      return value;
+    }
     const value = this.heap[0];
     this.heap[0] = this.heap.pop();
     this.bubbleDown();
     return value;
   }
   bubbleUp() {
-    let curIdx = this.heap.length - 1;
-    let parrentIdx = Math.floor(curIdx / 2);
-    while (
-      this.heap[parrentIdx] &&
-      this.heap[parrentIdx][1] > this.heap[curIdx][1]
-    ) {
-      this.swap(parrentIdx, curIdx);
+    let curIdx = this.size() - 1;
+    let parrentIdx = Math.floor((curIdx - 1) / 2);
+    while (curIdx > 0 && this.heap[curIdx][1] < this.heap[parrentIdx][1]) {
+      this.swap(curIdx, parrentIdx);
       curIdx = parrentIdx;
-      parrentIdx = Math.floor(curIdx / 2);
+      parrentIdx = Math.floor((curIdx - 1) / 2);
     }
   }
   bubbleDown() {
     let curIdx = 0;
-    let leftIdx = curIdx * 2;
-    let rightIdx = curIdx * 2 + 1;
-
-    if (!this.heap[rightIdx]) {
-      if (this.heap[curIdx] && this.heap[curIdx][1] > this.heap[leftIdx][1])
-        this.swap(curIdx, leftIdx);
-      return;
-    }
+    let leftIdx = curIdx * 2 + 1;
+    let rightIdx = curIdx * 2 + 2;
 
     while (
-      (this.heap[leftIdx] && this.heap[curIdx][1] > this.heap[leftIdx][1]) ||
-      (this.heap[rightIdx] && this.heap[curIdx][1] > this.heap[rightIdx][1])
+      (this.heap[rightIdx] && this.heap[curIdx][1] > this.heap[rightIdx][1]) ||
+      (this.heap[leftIdx] && this.heap[curIdx][1] > this.heap[leftIdx][1])
     ) {
+      // 왼쪽 자식만 있는 경우
+      if (!this.heap[rightIdx]) {
+        this.swap(curIdx, leftIdx);
+        return;
+      }
+
+      // 둘다 모두 작은 경우
       if (
-        this.heap[rightIdx] &&
-        this.heap[leftIdx][1] >= this.heap[rightIdx][1]
+        this.heap[rightIdx][1] < this.heap[curIdx][1] &&
+        this.heap[leftIdx][1] < this.heap[curIdx][1]
+      ) {
+        const smallerIdx =
+          this.heap[leftIdx][1] < this.heap[rightIdx][1] ? leftIdx : rightIdx;
+        this.swap(smallerIdx, curIdx);
+        curIdx = smallerIdx;
+        leftIdx = curIdx * 2 + 1;
+        rightIdx = curIdx * 2 + 2;
+        continue;
+      }
+
+      // 둘중 오른쪽만 더 작은 경우
+      if (
+        this.heap[rightIdx][1] < this.heap[curIdx][1] &&
+        this.heap[leftIdx][1] > this.heap[curIdx][1]
       ) {
         this.swap(curIdx, rightIdx);
         curIdx = rightIdx;
-        leftIdx = curIdx * 2;
-        rightIdx = curIdx * 2 + 1;
-      } else {
+        leftIdx = curIdx * 2 + 1;
+        rightIdx = curIdx * 2 + 2;
+        continue;
+      }
+
+      // 둘중 왼쪽만 더 작은 경우
+      if (
+        this.heap[rightIdx][1] > this.heap[curIdx][1] &&
+        this.heap[leftIdx][1] < this.heap[curIdx][1]
+      ) {
         this.swap(curIdx, leftIdx);
         curIdx = leftIdx;
-        leftIdx = curIdx * 2;
-        rightIdx = curIdx * 2 + 1;
+        leftIdx = curIdx * 2 + 1;
+        rightIdx = curIdx * 2 + 2;
+        continue;
       }
     }
   }
 }
-
+const INF = "INF";
 const filePath =
   process.platform === "linux"
     ? "/dev/stdin"
@@ -71,9 +100,9 @@ const input = require("fs")
   .split("\n");
 const [V, E] = input.shift().split(" ").map(Number);
 const K = +input.shift();
-const INF = Number.MAX_SAFE_INTEGER;
+
 const graph = Array.from({ length: V + 1 }, () => []);
-const ans = Array.from({ length: V + 1 }, () => "INF");
+const ans = Array.from({ length: V + 1 }, () => INF);
 
 for (let i = 0; i < E; i++) {
   const [start, end, dis] = input[i].split(" ").map(Number);
@@ -83,26 +112,29 @@ for (let i = 0; i < E; i++) {
 function dijkstra(v) {
   const pq = new MinHeap();
   pq.add([K, 0]);
-  while (pq.heap.length) {
-    const [curNode, accumulativeDis] = pq.poll();
-    console.log(pq.heap);
-    const connected = graph[curNode];
+  while (pq.heap.length > 0) {
+    // console.log("힙 확인", pq.heap);
+    const [cur, accumulativeDis] = pq.extract();
+    // console.log("cur:", cur);
+    // console.log("accumulativeDis:", accumulativeDis);
+
+    const connected = graph[cur];
     for (let i = 0; i < connected.length; i++) {
       const [node, dis] = connected[i];
-      // console.log(`${curNode}에 연결된 ${dis} 거리의${node}`);
-      if (ans[node] === "INF") ans[node] = accumulativeDis + dis;
-      else if (ans[node] > accumulativeDis + dis) {
-        ans[node] = accumulativeDis + dis;
-        // pq.add([node, accumulativeDis + dis]);
-      }
+      if (ans[node] < accumulativeDis + dis) continue;
+      pq.add([node, dis + accumulativeDis]);
+      if (ans[node] === INF) ans[node] = accumulativeDis + dis;
+      if (ans[node] > dis + accumulativeDis) ans[node] = dis + accumulativeDis;
     }
+
+    // console.log("\n");
   }
 }
 
 function solution() {
   ans[K] = 0;
   dijkstra(K);
-
-  // console.log(ans.join("\n"));
+  ans.shift();
+  console.log(ans.join("\n"));
 }
 solution();
