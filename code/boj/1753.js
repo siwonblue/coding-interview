@@ -88,7 +88,7 @@ class MinHeap {
     }
   }
 }
-const INF = "INF";
+const INF = Number.MAX_SAFE_INTEGER;
 const filePath =
   process.platform === "linux"
     ? "/dev/stdin"
@@ -112,22 +112,15 @@ for (let i = 0; i < E; i++) {
 function dijkstra(v) {
   const pq = new MinHeap();
   pq.add([K, 0]);
-  while (pq.heap.length > 0) {
-    // console.log("힙 확인", pq.heap);
-    const [cur, accumulativeDis] = pq.extract();
-    // console.log("cur:", cur);
-    // console.log("accumulativeDis:", accumulativeDis);
-
-    const connected = graph[cur];
-    for (let i = 0; i < connected.length; i++) {
-      const [node, dis] = connected[i];
-      if (ans[node] < accumulativeDis + dis) continue;
-      pq.add([node, dis + accumulativeDis]);
-      if (ans[node] === INF) ans[node] = accumulativeDis + dis;
-      if (ans[node] > dis + accumulativeDis) ans[node] = dis + accumulativeDis;
+  while (pq.heap.length) {
+    const [cur, cost] = pq.extract();
+    for (let i = 0; i < graph[cur].length; i++) {
+      const [node, nCost] = graph[cur][i];
+      if (ans[node] > cost + nCost) {
+        ans[node] = cost + nCost;
+        pq.add([node, ans[node]]);
+      }
     }
-
-    // console.log("\n");
   }
 }
 
@@ -135,6 +128,11 @@ function solution() {
   ans[K] = 0;
   dijkstra(K);
   ans.shift();
-  console.log(ans.join("\n"));
+  let str = "";
+  for (let i = 0; i < ans.length; i++) {
+    if (ans[i] === INF) str += "INF ";
+    else str += `${ans[i]} `;
+  }
+  console.log(str.split(" ").join("\n").trim());
 }
 solution();
