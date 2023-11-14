@@ -3,6 +3,7 @@
     "*.svg": "html",
     "iostream": "cpp",
     "vector": "cpp",
-    "ostream": "cpp"
+    "ostream": "cpp",
+    "queue": "cpp"
   }
 }
