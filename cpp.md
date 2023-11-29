@@ -267,3 +267,53 @@ int main(void){
 }
 
 ```
+
+# 객체 리터럴 표현법
+
+아래 JS처럼 객체 리터럴을 쓰고 싶다면 c++에서는 map 을 사용한다.
+
+```js
+const direction = {
+  R: [0, 0],
+  L: [1, 1],
+};
+```
+
+```c++
+#include <iostream>
+#include <map>
+#include <vector>
+using namespace std;
+
+int main() {
+    // map을 사용하여 키-값 쌍을 생성
+    map<string, vector<int>> direction = {
+        {"R", {0, 0}},
+        {"L", {1, 1}}
+    };
+
+    // 사용 예시
+    cout << "R: [" << direction["R"][0] << ", " << direction["R"][1] << "]" << endl;
+    cout << "L: [" << direction["L"][0] << ", " << direction["L"][1] << "]" << endl;
+
+    return 0;
+}
+
+
+// 추가 예시
+vector<int> solution(string commands) {
+		vector<int> answer = {0,0};
+    map<char, vector<int>> direction = {
+			{'U',{0,1}},
+			{'R',{1,0}},
+			{'D',{0,-1}},
+			{'L',{-1,0}}
+		};
+		for(auto c : commands){
+			answer[0] += direction[c][0];
+			answer[1] += direction[c][1];
+		}
+    return answer;
+}
+
+```
