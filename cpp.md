@@ -268,6 +268,72 @@ int main(void){
 
 ```
 
+# 문자열을 벡터로 만들기
+
+js에서 사용하는 아래 방법을 c++에서는 vector<char> 로 표혛난다.
+
+```js
+const a = "abcdef";
+const b = a.split("");
+```
+
+```c++
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int main() {
+    string a = "abcdef";
+    vector<char> b(a.begin(), a.end());
+
+    // 벡터 b의 내용을 출력
+    for (char c : b) {
+        cout << c << " ";
+    }
+
+    return 0;
+}
+
+```
+
+# 문자로 이루어진 벡터를 문자열로 만들기
+
+js에서 `["a","b"].join("")` 을 아래처럼 구현한다.
+
+```c++
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int main() {
+    vector<string> a = {"a", "b", "c"};
+    string result;
+
+    for (const auto& elem : a) {
+        result += elem; // 각 요소를 결과 문자열에 추가
+    }
+
+    cout << result; // "abc" 출력
+    return 0;
+}
+
+
+```
+
+# 문자열 반복문
+
+```c++
+#include <string>
+
+string str = "siwon";
+for(char c:str) // c의 타입은 char
+for(int i=0;i < str.size();i++) // str[i] 의 타입도 char
+```
+
 # 객체 리터럴 표현법
 
 아래 JS처럼 객체 리터럴을 쓰고 싶다면 c++에서는 map 을 사용한다.
