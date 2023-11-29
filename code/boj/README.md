@@ -1,3 +1,13 @@
+# 1916
+
+https://www.acmicpc.net/problem/1916
+
+- 다익스트라 기본 문제,
+  시간초과가 난다. ab3a9f9 (HEAD -> main) [feat] 1916 fail : time out  
+  [시간초과 이유 질문게시판](https://www.acmicpc.net/board/view/120158)
+
+- WIP
+
 # 14502
 
 https://www.acmicpc.net/problem/14502
