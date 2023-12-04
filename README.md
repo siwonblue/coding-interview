@@ -15,3 +15,7 @@
 └── lecture
     └── inflearn_js
 ```
+
+# note
+
+- https://siwonblue.notion.site/C-note-bcb57f7a20b543eb9d5c6f81c1a61996?pvs=4
