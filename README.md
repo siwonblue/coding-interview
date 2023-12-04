@@ -18,4 +18,6 @@
 
 # note
 
-- https://siwonblue.notion.site/C-note-bcb57f7a20b543eb9d5c6f81c1a61996?pvs=4
+[c++노트](https://siwonblue.notion.site/C-note-bcb57f7a20b543eb9d5c6f81c1a61996?pvs=4)  
+[복습 노트](https://siwonblue.notion.site/d756974483354016a4c392892e1a8508?pvs=4)  
+[javascript 노트](https://siwonblue.notion.site/Javascript-note-c2c7efe79daa4ee48b43314d32d91c65?pvs=4)
