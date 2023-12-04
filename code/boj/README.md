@@ -7,6 +7,8 @@ https://www.acmicpc.net/problem/10816
 - 자료구조
 - 이분탐색
 
+.js 를 이용해서 upper bound, lower bound 를 실제로 구현하는 내용에 대해서 잘 알아두자.
+
 # 1916
 
 https://www.acmicpc.net/problem/1916
