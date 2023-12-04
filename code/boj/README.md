@@ -1,3 +1,12 @@
+# 10816
+
+https://www.acmicpc.net/problem/10816
+해시 맵을 이용하거나 이분 탐색을 이용해서 풀 수 있는 문제
+
+- 탐색
+- 자료구조
+- 이분탐색
+
 # 1916
 
 https://www.acmicpc.net/problem/1916
