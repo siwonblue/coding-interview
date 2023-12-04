@@ -1,3 +1,10 @@
+# 1992
+
+https://www.acmicpc.net/problem/1992
+
+- 재귀, 분할
+  분할 한 다음에 문자열로 어떻게 출력해야할지 고민이 많이 되는 문제.
+
 # 1439
 
 https://www.acmicpc.net/problem/1439
