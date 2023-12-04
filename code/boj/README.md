@@ -1,3 +1,14 @@
+# 1439
+
+https://www.acmicpc.net/problem/1439
+문자열 탐색
+
+- 탐색하는 범위를 확인하자.
+
+```c++
+for(int i=0;i< str.size();i++) // 끝까지
+```
+
 # 10816
 
 https://www.acmicpc.net/problem/10816
