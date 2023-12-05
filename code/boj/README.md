@@ -1,3 +1,9 @@
+# 2447
+
+https://www.acmicpc.net/problem/2447
+
+- fail.cpp 코드처럼 짜면 화면에 원하는 방식대로 출력이 되지 않기 때문에 풀이가 틀렸다.
+
 # 9012
 
 https://www.acmicpc.net/problem/9012
