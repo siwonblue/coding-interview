@@ -1,3 +1,9 @@
+# 9012
+
+https://www.acmicpc.net/problem/9012
+
+- 스택 자료구조 활용
+
 # 1992
 
 https://www.acmicpc.net/problem/1992
