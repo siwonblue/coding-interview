@@ -14,6 +14,7 @@ class FoodRatings {
     const cusines_ = Array.from(new Set([...cuisines]));
     for (let i = 0; i < cusines_.length; i++) {
       if (!this.hash.get(cusines_[i])) {
+        // timeout
         this.hash.set(cusines_[i], []);
         this.hash.set(`${cusines_[i]}Scores`, []);
       }
@@ -22,13 +23,14 @@ class FoodRatings {
     for (let i = 0; i < cuisines.length; i++) {
       this.hash.set(cuisines[i], [...this.hash.get(cuisines[i]), foods[i]]);
       this.hash.set(`${cuisines[i]}Scores`, [
-        ...this.hash.get(`${cuisines[i]}Scores`),
+        ...this.hash.get(`${cuisines[i]}Scores`), // time out
         ratings[i],
       ]);
     }
-    console.log(this.hash);
+    // console.log(this.hash);
   }
 
+  // time out
   highestRated(cuisine) {
     const highestRate = Math.max(...this.hash.get(`${cuisine}Scores`));
 
@@ -44,10 +46,11 @@ class FoodRatings {
 
     const src = [];
     for (let i = 0; i < indices.length; i++)
-      src.push(this.hash.get(cuisine)[indices[i]]);
+      src.push(this.hash.get(cuisine)[indices[i]]); // 시간 초과 위험한데 O(N N) = 4 * 10^8
     return src.sort()[0];
   }
 
+  // time ok.
   changeRating(food, newRating) {
     // find typeof food
     const idx = this.f.indexOf(food);

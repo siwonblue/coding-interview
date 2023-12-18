@@ -7,6 +7,7 @@
     "queue": "cpp",
     "string": "cpp",
     "iosfwd": "cpp",
-    "algorithm": "cpp"
+    "algorithm": "cpp",
+    "map": "cpp"
   }
 }
