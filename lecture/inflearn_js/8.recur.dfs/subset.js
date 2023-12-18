@@ -16,4 +16,4 @@ function DFS(n) {
   DFS(n + 1);
 }
 
-DFS(1, dp);
+DFS(1);
