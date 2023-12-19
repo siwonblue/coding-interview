@@ -17,8 +17,6 @@
 # note
 
 [알고리즘노트](https://leetcode.com/problems/design-a-food-rating-system/editorial/?envType=daily-question&envId=2023-12-17)
-[한권으로 끝내는 코딩테스트](https://www.notion.so/siwonblue/with-2e4ff473e1374857bfd42b1493eb0f52?pvs=4)
-[이것이 취업을 위한 코딩테스트다]()
 
 [C++ note](https://siwonblue.notion.site/C-note-bcb57f7a20b543eb9d5c6f81c1a61996?pvs=4)  
 [Javascript note](https://siwonblue.notion.site/Javascript-note-c2c7efe79daa4ee48b43314d32d91c65?pvs=4)
