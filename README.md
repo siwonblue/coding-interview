@@ -5,9 +5,9 @@
 
 ```bash
 ├── study
-│ └── this_is_coding_interview
+│ └── done_with_python
 │ ├── inflearn_js
-│ └── programmers
+│ └── this_is_coding_interview
 └── problem
   ├── boj
   ├── leet
@@ -16,7 +16,7 @@
 
 # note
 
-[알고리즘노트](https://leetcode.com/problems/design-a-food-rating-system/editorial/?envType=daily-question&envId=2023-12-17)
+[알고리즘노트](https://siwonblue.notion.site/d9985e6e01594727ae82ffc378b22b48?v=4c08fe47dc314d079d34e3a9b90a4388)
 
 [C++ note](https://siwonblue.notion.site/C-note-bcb57f7a20b543eb9d5c6f81c1a61996?pvs=4)  
 [Javascript note](https://siwonblue.notion.site/Javascript-note-c2c7efe79daa4ee48b43314d32d91c65?pvs=4)
