@@ -21,7 +21,7 @@ def get_path(a,k,dp):
   target = k
   while target != a:
     path.append(target)
-    if target%2==0 and target //2 and dp[target//2]< dp[target-1] :
+    if target%2==0 and target //2 > a and dp[target//2]< dp[target-1] :
       target//=2
     else:
       target-=1
