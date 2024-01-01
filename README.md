@@ -1,9 +1,11 @@
 # 코딩테스트 대비 공부 레포
 
+- example : 언어 문법 정리
 - study : 책 읽고 정리하는 곳
 - problem : 백준, 프로그래머스, 리트코드 등 문제풀고 정리
 
 ```bash
+└── example
 ├── study
 │ └── done_with_python
 │ ├── inflearn_js
